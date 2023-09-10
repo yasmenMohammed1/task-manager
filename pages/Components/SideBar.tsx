@@ -8,10 +8,10 @@ function SideBar() {
   const { pathname } = useRouter();
 
   return (
-    <div className="bg-[#FBFAFF]    space-y-16 h-[100vh] w-[5%]">
-      <div className="p-2 ">
+    <div className="bg-[#FBFAFF] p-3   dark:bg-[#131517]   space-y-16 h-[100vh] ">
+      <div className="p-2 text-center ">
         <Image className=" m-auto" src={Logo} alt="Logo" />
-        <p className="xl:block hidden text-[#23235F] font-semibold text-sm">
+        <p className="xl:block hidden text-[#23235F] dark:text-[#f5f5f8] font-semibold text-sm">
           OCTOM.
         </p>
       </div>

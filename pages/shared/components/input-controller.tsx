@@ -1,3 +1,4 @@
+import React from "react";
 import { Controller, Control } from "react-hook-form";
 
 type InputControllerProps = {
@@ -8,6 +9,7 @@ type InputControllerProps = {
   iconClassName?: string;
   Icon?: React.ElementType;
   labelClassName?: string;
+  
 };
 function InputController({
   control,
@@ -18,7 +20,7 @@ function InputController({
   labelClassName,
   label,
   ...props
-}: InputControllerProps) {
+}: InputControllerProps&React.HTMLProps<HTMLInputElement>) {
   return (
     <Controller
       control={control}
@@ -36,8 +38,7 @@ function InputController({
               value={value === null ? "" : value}
               {...otherRenderProps}
               {...props}
-              {...props}
-            />{" "}
+            />
             {Icon && (
               <Icon
                 className={`absolute top-3 right-4  text-black ${iconClassName} `}
