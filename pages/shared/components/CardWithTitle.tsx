@@ -1,6 +1,12 @@
 import React from "react";
 
-function CardWithTitle({ className, cardTitle, cardBody, cardIcon ,cardPercentage}: any) {
+function CardWithTitle({
+  className,
+  cardTitle,
+  cardBody,
+  cardIcon,
+  cardPercentage,
+}: any) {
   return (
     <div
       className={`rounded-md dark:bg-[#1E1F25] bg-white shadow-sm shadow-black ${className}`}
@@ -8,12 +14,11 @@ function CardWithTitle({ className, cardTitle, cardBody, cardIcon ,cardPercentag
       <div className="flex justify-between p-4 ">
         <div className="flex gap-4">
           {cardIcon}
-          <p >{cardTitle}</p>
+          <p>{cardTitle}</p>
         </div>
-       <p className="" >
-        {cardPercentage}
-        </p> 
+        <p className="">{cardPercentage}</p>
       </div>
+      {cardBody}
     </div>
   );
 }
