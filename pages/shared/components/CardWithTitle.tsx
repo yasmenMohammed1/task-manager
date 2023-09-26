@@ -1,4 +1,6 @@
 import React from "react";
+import { useForm } from "react-hook-form";
+import InputController from "./input-controller";
 
 function CardWithTitle({
   className,
@@ -7,16 +9,17 @@ function CardWithTitle({
   cardIcon,
   cardPercentage,
 }: any) {
+  const { control } = useForm({});
   return (
     <div
-      className={`rounded-md dark:bg-[#1E1F25] bg-white shadow-sm shadow-black ${className}`}
+      className={`rounded-3xl dark:bg-[#1E1F25] bg-white shadow-sm shadow-black ${className}`}
     >
-      <div className="flex justify-between p-4 ">
-        <div className="flex gap-4">
+      <div className="flex justify-between text-2xl font-semibold p-4 ">
+        <div className="  flex gap-4">
           {cardIcon}
-          <p>{cardTitle}</p>
+          <p className=" text-[#8C97A8]">{cardTitle}</p>
         </div>
-        <p className="">{cardPercentage}</p>
+        <p>{cardPercentage}</p>
       </div>
       {cardBody}
     </div>

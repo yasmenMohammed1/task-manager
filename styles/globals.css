@@ -1,21 +1,20 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-
-
-
+@import "toastify-js/src/toastify.css";
 @media (prefers-color-scheme: dark) {
-
- 
 }
 
 body {
-  color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
-      to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb));
+  background-color: theme("colors.secondary");
 }
-
+.danger {
+}
+.auth-layout {
+  background: rgb(30, 31, 37);
+  background: linear-gradient(
+    90deg,
+    rgba(30, 31, 37, 1) 0%,
+    rgba(80, 81, 249, 1) 100%
+  );
+}
