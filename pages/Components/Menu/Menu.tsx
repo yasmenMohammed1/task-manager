@@ -19,13 +19,13 @@ function Menu({ avatarSrc, avatarAlt, menuItems }: MenuProps) {
       <button
         onClick={toggleDropdown}
         type="button"
-        className="inline-flex justify-center items-center p-2 "
+        className={`inline-flex bg-gray-200 rounded-full justify-center items-center p-2 ${isOpen&&`border border-1 border-[#5051F9]`}`}
         id="options-menu"
         title="avatar-btn"
         aria-haspopup="true"
         aria-expanded="true"
       >
-        <Image width={35} height={20} src={avatarSrc} alt={avatarAlt} />
+        <Image  width={35} height={20} src={avatarSrc} alt={avatarAlt} />
       </button>
 
       {isOpen && (
@@ -37,7 +37,6 @@ function Menu({ avatarSrc, avatarAlt, menuItems }: MenuProps) {
             aria-labelledby="options-menu"
           >
             {menuItems?.map((menuItem) => {
-              console.log(pathname, menuItem.name === pathname);
               return (
                 <a
                   key={menuItem.name}
