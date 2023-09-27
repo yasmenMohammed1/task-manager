@@ -11,12 +11,14 @@ import IconBtn from "../shared/components/IconBtn";
 import { MdNightlightRound } from "react-icons/md";
 import { BsSun } from "react-icons/bs";
 import { useForm } from "react-hook-form";
+import { useAuthContext } from "../firebase/AuthContextProvider";
 function Navbar() {
   const { setTheme, theme } = useTheme();
   const [icon, setIcon] = useState(MdNightlightRound);
   const { control } = useForm({});
+  const user = useAuthContext();
   return (
-    <div className="w-[92.5%]  fixed flex h-[3%] md:h-[10%] dark:bg-[#131517] items-center justify-center  bg-white top-0 left-[7.5%]">
+    <div className="w-[92.5%]  fixed flex h-[3%] md:h-[10%]  items-center justify-center dark:bg-[#1E1F25] bg-white top-0 left-[7.5%]">
       <div className="w-2/3  flex justify-end">
         <InputController
           placeholder="search for anything"
@@ -31,8 +33,21 @@ function Navbar() {
       </div>
 
       <div className="w-1/3 flex items-center gap-3 justify-end p-2">
-        <Image width={25} height={15} src={Notification} alt="notification" />
-        <Menu avatarAlt="avatar" avatarSrc={Avatar} menuItems={MenuListItems} />
+        {user && (
+          <>
+            <Image
+              width={25}
+              height={15}
+              src={Notification}
+              alt="notification"
+            />
+            <Menu
+              avatarAlt="avatar"
+              avatarSrc={Avatar}
+              menuItems={MenuListItems}
+            />
+          </>
+        )}
         <IconBtn
           label="theme-changer"
           name="theme_changer"
