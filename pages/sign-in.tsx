@@ -1,19 +1,13 @@
 import React from "react";
-import { useForm } from "react-hook-form";
-import InputController from "./shared/components/input-controller";
-import { auth } from "./firebase/firebase";
-import { createUserWithEmailAndPassword } from "firebase/auth";
-import toast from "toastify-js";
-import { DANGERTOAST } from "./shared/Constants/toatsTypes";
-import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { AuthContext, useAuthContext } from "./firebase/AuthContextProvider";
+import { useForm } from "react-hook-form";
+
+import * as yup from "yup";
+import InputController from "./shared/components/input-controller";
+import { signInWithEmailAndPassword } from "firebase/auth";
+import { auth } from "./firebase/firebase";
+import signIn from "./firebase/signin";
 import { useRouter } from "next/router";
-type User = {
-  username: string;
-  password: string;
-  email: string;
-};
 
 const schema = yup.object().shape({
   username: yup.string().required(),
@@ -21,46 +15,13 @@ const schema = yup.object().shape({
   email: yup.string().email().required(),
 });
 
-function Register() {
-  const router = useRouter();
+function SignIn() {
   const { control, handleSubmit } = useForm({ resolver: yupResolver(schema) });
+  const router = useRouter();
+
   const handleRegister = async (user: any) => {
-    try {
-      const result = await createUserWithEmailAndPassword(
-        auth,
-        user.email,
-        user.password
-      );
-      toast({
-        text: `welcome ${result?.user.displayName}`,
-        duration: 3000,
-        close: true,
-        gravity: "top",
-        position: "left",
-        stopOnFocus: true,
-        style: {
-          color: ' theme("colors.primary")',
-
-          background: DANGERTOAST,
-        },
-      }).showToast();
-
-      router.push("/dashboard");
-    } catch (err: any) {
-      toast({
-        text: err.message,
-        duration: 3000,
-        close: true,
-        gravity: "top",
-        position: "left",
-        stopOnFocus: true,
-        style: {
-          color: ' theme("colors.primary")',
-
-          background: DANGERTOAST,
-        },
-      }).showToast();
-    }
+    await signIn(user.email, user.password);
+    router.push("/dashboard");
   };
   return (
     <form
@@ -98,4 +59,4 @@ function Register() {
   );
 }
 
-export default Register;
+export default SignIn;

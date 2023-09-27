@@ -4,11 +4,29 @@ import { useState } from "react";
 type MenuProps = {
   avatarSrc: StaticImageData;
   avatarAlt: string;
-  menuItems?: { name: string; to: string }[];
+  menuItems?: { name: string; to: string; func?: () => void }[];
 };
 function Menu({ avatarSrc, avatarAlt, menuItems }: MenuProps) {
   const [isOpen, setIsOpen] = useState(false);
-  const { pathname } = useRouter();
+  const router = useRouter();
+
+  const aProps = (menuItem: {
+    name: string;
+    to: string;
+    func?: () => void;
+  }) => {
+    return menuItem.func
+      ? {
+          onClick: (e: Event) => {
+            e.preventDefault();
+            try {
+              menuItem.func?.();
+              router.push("/sign-in");
+            } catch (error) {}
+          },
+        }
+      : { href: menuItem.to };
+  };
 
   const toggleDropdown = () => {
     setIsOpen(!isOpen);
@@ -19,13 +37,15 @@ function Menu({ avatarSrc, avatarAlt, menuItems }: MenuProps) {
       <button
         onClick={toggleDropdown}
         type="button"
-        className={`inline-flex bg-gray-200 rounded-full justify-center items-center p-2 ${isOpen&&`border border-1 border-[#5051F9]`}`}
+        className={`inline-flex bg-gray-200 rounded-full justify-center items-center p-2 ${
+          isOpen && `border border-1 border-[#5051F9]`
+        }`}
         id="options-menu"
         title="avatar-btn"
         aria-haspopup="true"
         aria-expanded="true"
       >
-        <Image  width={35} height={20} src={avatarSrc} alt={avatarAlt} />
+        <Image width={35} height={20} src={avatarSrc} alt={avatarAlt} />
       </button>
 
       {isOpen && (
@@ -40,10 +60,10 @@ function Menu({ avatarSrc, avatarAlt, menuItems }: MenuProps) {
               return (
                 <a
                   key={menuItem.name}
-                  href={menuItem.to}
+                  {...aProps(menuItem)}
                   className={`block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900 ${
-                    pathname === menuItem.name ? "bg-[#5051F9]" : ""
-                  }`}
+                    menuItem.func ? "cursor-pointer" : ""
+                  } ${router.pathname === menuItem.name ? "bg-[#5051F9]" : ""}`}
                   role="menuitem"
                 >
                   {menuItem.name}
