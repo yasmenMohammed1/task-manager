@@ -52,7 +52,6 @@ function SignIn() {
           setIsSignInWithGoogle(true);
           try {
             const result = await googleSignIn();
-            console.log("result", result);
           } catch (error: any) {
             resultToast(error.message, DANGERTOAST);
           }
