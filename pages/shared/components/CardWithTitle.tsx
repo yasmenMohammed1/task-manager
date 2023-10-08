@@ -12,7 +12,7 @@ function CardWithTitle({
   const { control } = useForm({});
   return (
     <div
-      className={`rounded-3xl dark:bg-[#1E1F25] bg-white shadow-sm shadow-black ${className}`}
+      className={`rounded-3xl w-1/3 dark:bg-[#1E1F25] bg-white shadow-sm shadow-black ${className}`}
     >
       <div className="flex justify-between text-2xl font-semibold p-4 ">
         <div className="  flex gap-4">

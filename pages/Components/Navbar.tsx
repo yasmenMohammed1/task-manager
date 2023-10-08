@@ -17,8 +17,9 @@ function Navbar() {
   const [icon, setIcon] = useState(MdNightlightRound);
   const { control } = useForm({});
   const user = useAuthContext();
+  console.log("user?.user?.photoURL", user);
   return (
-    <div className="w-[92.5%]  fixed flex h-[3%] md:h-[10%]  items-center justify-center dark:bg-[#1E1F25] bg-white top-0 left-[7.5%]">
+    <div className="w-[92.5%] z-10  fixed flex h-[3%] md:h-[10%]  items-center justify-center dark:bg-[#1E1F25] bg-white top-0 left-[7.5%]">
       <div className="w-2/3  flex justify-end">
         <InputController
           placeholder="search for anything"
@@ -33,7 +34,7 @@ function Navbar() {
       </div>
 
       <div className="w-1/3 flex items-center gap-3 justify-end p-2">
-        {user && (
+        {user.user && (
           <>
             <Image
               width={25}
@@ -43,7 +44,7 @@ function Navbar() {
             />
             <Menu
               avatarAlt="avatar"
-              avatarSrc={Avatar}
+              avatarSrc={`${user?.user?.photoURL}`}
               menuItems={MenuListItems}
             />
           </>

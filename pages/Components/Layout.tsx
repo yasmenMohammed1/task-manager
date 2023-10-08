@@ -7,7 +7,7 @@ import { useAuthContext } from "../firebase/AuthContextProvider";
 function Layout({ children }: any) {
   const user = useAuthContext();
   return (
-    <div className="grid min-h-screen grid-rows-header bg-zinc-100 dark:bg-[#131517]">
+    <div className="grid grid-rows-header bg-zinc-100 dark:bg-[#131517]">
       <Navbar />
       <div className="grid   md:grid-cols-sidebar">
         <SideBar />

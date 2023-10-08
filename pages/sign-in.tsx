@@ -1,27 +1,28 @@
-import React from "react";
+import React, { useState } from "react";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm } from "react-hook-form";
-
 import * as yup from "yup";
 import InputController from "./shared/components/input-controller";
-import { signInWithEmailAndPassword } from "firebase/auth";
-import { auth } from "./firebase/firebase";
-import signIn from "./firebase/signin";
-import { useRouter } from "next/router";
+import signIn, { googleSignIn } from "./firebase/signin";
+import resultToast from "./shared/components/Toast";
+import { DANGERTOAST } from "./shared/Constants/toatsTypes";
+import Btn from "./shared/components/Btn";
+import Google from "@public/google.png";
 
 const schema = yup.object().shape({
-  username: yup.string().required(),
   password: yup.string().required(),
   email: yup.string().email().required(),
 });
 
 function SignIn() {
   const { control, handleSubmit } = useForm({ resolver: yupResolver(schema) });
-  const router = useRouter();
+  const [isSignInWithGoogle, setIsSignInWithGoogle] = useState(false);
+  const [isSignInWithEmail, setIsSignInWithEmail] = useState(false);
 
   const handleRegister = async (user: any) => {
+    setIsSignInWithEmail(true);
     await signIn(user.email, user.password);
-    router.push("/dashboard");
+    setIsSignInWithEmail(false);
   };
   return (
     <form
@@ -29,32 +30,46 @@ function SignIn() {
       className=" space-y-3 flex flex-col justify-center items-center h-full text-center"
     >
       <InputController
-        labelClassName="text-black border-2 w-1/2   border-primary"
-        control={control}
-        name="username"
-        label="user name"
-        placeholder="user name"
-      />
-      <InputController
-        labelClassName="text-black border-2 w-1/2 border-primary"
+        labelClassName="text-black border-2 w-1/2 rounded-md border-primary"
         control={control}
         name="email"
         label="email address"
         placeholder="email address"
-      />{" "}
+      />
       <InputController
-        labelClassName="text-black border-2 w-1/2 border-primary"
+        labelClassName="text-black border-2 rounded-md w-1/2 border-primary"
         control={control}
         name="password"
         placeholder=" password"
         label="password"
       />
-      <button
-        className="p-2 bg-secondary rounded-md text-primary w-1/3"
+      <Btn
+        image={Google}
+        isLoading={isSignInWithGoogle}
+        className="btn"
+        name="sign-with-google"
+        onClick={async () => {
+          setIsSignInWithGoogle(true);
+          try {
+            const result = await googleSignIn();
+            console.log("result", result);
+          } catch (error: any) {
+            resultToast(error.message, DANGERTOAST);
+          }
+          setIsSignInWithGoogle(false);
+        }}
+        type="button"
+      >
+        sign in
+      </Btn>
+      <Btn
+        name="sign-in-btn"
+        isLoading={isSignInWithEmail}
+        className="btn"
         type="submit"
       >
         submit
-      </button>
+      </Btn>
     </form>
   );
 }
