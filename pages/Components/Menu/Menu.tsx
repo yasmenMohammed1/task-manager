@@ -2,7 +2,7 @@ import Image, { StaticImageData } from "next/image";
 import { useRouter } from "next/router";
 import { useState } from "react";
 type MenuProps = {
-  avatarSrc: StaticImageData;
+  avatarSrc: StaticImageData | string;
   avatarAlt: string;
   menuItems?: { name: string; to: string; func?: () => void }[];
 };
@@ -21,7 +21,7 @@ function Menu({ avatarSrc, avatarAlt, menuItems }: MenuProps) {
             e.preventDefault();
             try {
               menuItem.func?.();
-              router.push("/sign-in");
+              router.push("/register");
             } catch (error) {}
           },
         }
@@ -45,7 +45,13 @@ function Menu({ avatarSrc, avatarAlt, menuItems }: MenuProps) {
         aria-haspopup="true"
         aria-expanded="true"
       >
-        <Image width={35} height={20} src={avatarSrc} alt={avatarAlt} />
+        <Image
+          className="rounded-full  h-[30px] w-[30px]"
+          width={25}
+          height={25}
+          src={avatarSrc}
+          alt={avatarAlt}
+        />
       </button>
 
       {isOpen && (

@@ -1,29 +1,34 @@
-///import CircularProgress from "@mui/material/CircularProgress";
-import { Button, ButtonProps } from "@mui/material";
-import CircularProgress from "@mui/material/CircularProgress";
-import { SxProps } from "@mui/material/styles";
+import { ButtonHTMLAttributes } from "react";
+import CircularProgress from "./CircularProgress";
+import Image from "next/image";
+import { StaticImport } from "next/dist/shared/lib/get-img-props";
+interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
+  isLoading: Boolean;
 
-export function Btn({
-  isLoading = false,
-  sx,
-  ...props
-}: { isLoading: boolean } & ButtonProps & (SxProps | undefined)) {
+  image?: string | StaticImport | undefined;
+}
+
+export function Btn({ isLoading = false, image, ...props }: ButtonProps) {
   const { children } = props;
   return (
-    <Button
-      size="large"
-      sx={{
-        backgroundColor: "#3577F0",
-        ":hover": {
-          color: "primary.main",
-          backgroundColor: "#3577F0",
-        },
-        ...sx,
-      }}
-      {...props}
-    >
-      {isLoading ? <CircularProgress size={20} disableShrink /> : children}{" "}
-    </Button>
+    <button className="btn" {...props}>
+      {isLoading ? (
+        <CircularProgress />
+      ) : (
+        <div className="flex items-center justify-center gap-3">
+          {children}
+          {image && (
+            <Image
+              width={30}
+              className="rounded-lg"
+              height={10}
+              src={image}
+              alt="google logo"
+            />
+          )}
+        </div>
+      )}
+    </button>
   );
 }
 

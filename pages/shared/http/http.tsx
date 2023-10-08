@@ -12,12 +12,12 @@ export const http = axios.create({
   },
 
   transformRequest: [
-    (data) => {
+    (data: any) => {
       return JSON.stringify(data);
     },
   ],
   transformResponse: [
-    (data) => {
+    (data: any) => {
       return JSON.parse(data);
     },
   ],

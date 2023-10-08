@@ -6,15 +6,32 @@
 }
 
 body {
-  background-color: theme("colors.secondary");
-}
-.danger {
+  background-color: theme("colors.primary");
 }
 .auth-layout {
-  background: rgb(30, 31, 37);
+  background: rgb(11, 4, 55);
   background: linear-gradient(
     90deg,
-    rgba(30, 31, 37, 1) 0%,
-    rgba(80, 81, 249, 1) 100%
+    rgba(11, 4, 55, 1) 0%,
+    rgba(42, 103, 179, 1) 50%,
+    rgba(10, 7, 24, 1) 100%
   );
+}
+.spinner {
+  animation-name: spin;
+  animation-duration: 500ms;
+  animation-iteration-count: infinite;
+  animation-timing-function: linear;
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+.btn {
+  @apply p-2 h-[40px] bg-secondary rounded-md flex justify-center items-center text-center text-primary w-1/3;
 }

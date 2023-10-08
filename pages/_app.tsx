@@ -2,10 +2,7 @@ import "@/styles/globals.css";
 import type { AppProps } from "next/app";
 import Layout from "./Components/Layout";
 import { ThemeProvider } from "next-themes";
-import {
-  AuthContextProvider,
-  useAuthContext,
-} from "./firebase/AuthContextProvider";
+import { AuthContextProvider } from "./firebase/AuthContextProvider";
 
 export default function App({ Component, pageProps }: AppProps) {
   return (
